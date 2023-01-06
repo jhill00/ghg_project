@@ -123,7 +123,6 @@ async def main():
             web_scrape_tasks.append(task)
         url_tables = await asyncio.gather(*web_scrape_tasks)
         url_tables = [item for sublist in url_tables for item in sublist] # uses list comprehesnsion to flatten nested list (from [[t1, t2,..]] to [t1, t2,..])
-        print(f'url_tables: {url_tables}')
 
         # queries row counts for different tables
         # returns a list of dictionaries where key = table name, and key = row count
@@ -132,11 +131,9 @@ async def main():
             task = asyncio.create_task(query_count(session = session, table = i))
             query_count_tasks.append(task)
         row_count_dict_list = await asyncio.gather(*query_count_tasks)
-        print(f'row_count_dict_list: {row_count_dict_list}')
 
         # produces a list of urls to query
         all_url_list = await create_urls(row_count_dict_list = row_count_dict_list)
-        print(f'all_url_list: {all_url_list}')
 
         # saves the data to csv files
         save_csv_tasks = []
