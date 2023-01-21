@@ -124,7 +124,7 @@ async def main():
         url_tables = [item for sublist in url_tables for item in sublist] # uses list comprehesnsion to flatten nested list (from [[t1, t2,..]] to [t1, t2,..])
 
         # queries row counts for different tables
-        # returns a list of dictionaries where key = table name, and key = row count
+        # returns a list of dictionaries where key = table name, and value = row count
         query_count_tasks = []
         for i in url_tables:
             task = asyncio.create_task(query_count(session = session, table = i))
